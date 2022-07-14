@@ -1,0 +1,720 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato&display=swap');
+
+* {
+    padding: 0;
+    margin: 0;
+    font-family: 'Lato', sans-serif;
+}
+
+body {
+    background-color: black;
+}
+
+
+/* CARD PRODUCT */
+.project {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.project .project-container {
+    width: 95%;
+    margin-bottom: 50px;
+    margin-top: 4%;
+    margin-left: 45px;
+}
+
+.project .project-container .tittle {
+    text-align: left;
+    margin-left: 25px;
+}
+
+.project .project-container .tittle h1 {
+    font-weight: 600;
+    color: #f74d4d;
+}
+
+.project .project-container .search {
+    width: 10%;
+    margin-top: 40px;
+    margin-bottom: 40px;
+    margin-left: 30px;
+}
+.project .project-container .search img{
+    position: absolute;
+    margin-left: 290px;
+}
+
+.project .project-container .search input{
+    border-radius: 10px;
+    padding: 8px 50px;
+    font-size: 20px;
+}
+
+.project .project-container .content {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    padding: 10px;
+    justify-content: start;
+}
+
+.project .project-container .content .card {
+    width: 15%;
+    height: 50%;
+    background-color: #212121;
+    margin: 20px;
+    border-radius: 10px;
+    color: white;
+}
+
+.project .project-container .content .card .product-name {
+    text-align: start;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    color: #f74d4d;
+    margin-bottom: 10px;
+    margin-left: 20px;
+}
+
+.project .project-container .content .card .tittle h1 {
+    font-weight: 550;
+    font-size: 15px;
+}
+
+.project .project-container .content .card .img {
+    margin-bottom: 10px;
+}
+
+.project .project-container .content .card .img img {
+    width: 100%;
+    height: 275px;
+    border-radius: 9px 9px 0px 0px;
+}
+
+.project .project-container .content .card .description {
+    margin-left: 20px;
+}
+
+/* DETAIL PRODUCT */
+
+.detail-product {
+    display: flex;
+    width: 90%;
+    margin-top: 50px;
+    margin-left: 150px;
+}
+
+.detail-product .dtl-product-cont {
+    width: 75%;
+    display: flex;
+    background-color: black;
+}
+
+.detail-product .dtl-product-cont .dtl-prdct {
+    display: flex;
+    flex-direction: row;
+}
+
+.detail-product .dtl-product-cont .dtl-prdct .dtl-prdct-left {
+    width: 50%;
+    height: 100%;
+}
+
+.detail-product .dtl-product-cont .dtl-prdct .dtl-prdct-left .dtl-prdct-img img {
+    width: 95%;
+    height: 500px;
+}
+
+.detail-product .dtl-product-cont .dtl-prdct .dtl-prdct-right {
+    width: 75%;
+    height: 100%;
+    padding: 1px 0px 25px 25px;
+    font-size: 20px;
+    color: white;
+}
+
+.detail-product .dtl-product-cont .dtl-prdct .dtl-prdct-right .dtl-prdct-name h2 {
+    color: #f74d4d;
+    font-size: 50px;
+    font-weight: 600;
+    margin-bottom: 50px;
+}
+
+.detail-product .dtl-product-cont .dtl-prdct .dtl-prdct-right .dtl-prdct-desc .dtl-prdct-detail {
+    width: 75%;
+
+}
+
+.detail-product .dtl-product-cont .dtl-prdct .dtl-prdct-right .dtl-prdct-desc .dtl-prdct-list p {
+    text-align: justify;
+}
+
+.detail-product .dtl-product-cont .dtl-prdct .dtl-prdct-right .dtl-prdct-desc .dtl-prdct-detail p {
+    text-align: justify;
+}
+
+.detail-product .dtl-product-cont .dtl-prdct .dtl-prdct-right .dtl-prdct-desc .dtl-prdct-price {
+    color: #f74d4d;
+    width: 70%;
+    margin-top: 50px;
+    margin-left: 350px;
+    font-weight: 500;
+}
+
+.detail-product .dtl-product-cont .dtl-prdct .dtl-prdct-right .dtl-prdct-desc button {
+    display: flex;
+    margin-top: 50px;
+    padding: 10px 290px;
+}
+
+/* PROFILE */
+
+.profile-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 90%;
+    margin-top: 50px;
+    margin-left: 50px;
+}
+
+.profile-page .prfl-cont {
+    display: flex;
+
+}
+
+.profile-page .prfl-cont .prfl-main {
+    display: flex;
+    flex-direction: row;
+    margin-left: 50px;
+}
+
+.profile-page .prfl-cont .prfl-main .prfl-desc {
+    background-color: #f74d4d;
+    background-color: black;
+    width: 60%;
+
+
+}
+
+.profile-page .prfl-cont .prfl-main .prfl-desc h2 {
+    color: #f74d4d;
+    margin-bottom: 20px;
+    font-size: 40px;
+    font-weight: 600;
+}
+
+.profile-page .prfl-cont .prfl-main .prfl-desc .prfl-content {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 100%;
+}
+
+.profile-page .prfl-cont .prfl-main .prfl-desc .prfl-content .prfl-img {
+    display: flex;
+    width: 50%;
+    height: 100%;
+    margin-right: 40px;
+
+}
+
+.profile-page .prfl-cont .prfl-main .prfl-desc .prfl-content .prfl-img img {
+    width: 100%;
+    height: 85%;
+}
+
+
+.profile-page .prfl-cont .prfl-main .prfl-desc .prfl-content-desc {
+    margin-right: 100px;
+    color: white;
+    font-size: 20px;
+    text-align: justify;
+    width: 70%;
+}
+
+.profile-page .prfl-cont .prfl-main .prfl-desc .prfl-content-desc h3 {
+    color: #f74d4d;
+    font-size: 25px;
+}
+
+
+.profile-page .prfl-cont .prfl-main .recent-trx {
+    width: 35%;
+}
+
+.profile-page .prfl-cont .prfl-main .recent-trx h2 {
+    color: #f74d4d;
+    font-size: 40px;
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+
+.profile-page .prfl-cont .prfl-main .recent-trx .recent-trx-cont {
+    flex-direction: column;
+    display: flex;
+}
+
+.profile-page .prfl-cont .prfl-main .recent-trx .recent-trx-cont .recent-trx-card {
+    display: flex;
+    flex-direction: row;
+    background-color: #303030;
+    margin-bottom: 20px;
+    padding: 5px 20px 20px 20px;
+}
+
+.profile-page .prfl-cont .prfl-main .recent-trx .recent-trx-cont .recent-trx-card .recent-trx-card-left {
+    width: 60%;
+}
+
+.profile-page .prfl-cont .prfl-main .recent-trx .recent-trx-cont .recent-trx-card .recent-trx-card-right {
+    width: 40%;
+}
+
+.profile-page .prfl-cont .prfl-main .recent-trx .recent-trx-cont .recent-trx-card .recent-trx-card-left .recent-product {
+    display: flex;
+    flex-direction: row;
+}
+
+.profile-page .prfl-cont .prfl-main .recent-trx .recent-trx-cont .recent-trx-card .recent-trx-card-left .recent-product .recent-product-img {
+    width: 50%;
+    margin-top: 15px;
+    margin-left: 5px;
+}
+
+.profile-page .prfl-cont .prfl-main .recent-trx .recent-trx-cont .recent-trx-card .recent-trx-card-left .recent-product .recent-product-img img {
+    width: 100%;
+}
+
+.profile-page .prfl-cont .prfl-main .recent-trx .recent-trx-cont .recent-trx-card .recent-trx-card-left .recent-product .recent-product-desc {
+    width: 50%;
+    color: white;
+    margin-left: 15px;
+    font-size: 15px;
+}
+
+.profile-page .prfl-cont .prfl-main .recent-trx .recent-trx-cont .recent-trx-card .recent-trx-card-left .recent-product .recent-product-desc .tittle h2 {
+    color: #f74d4d;
+}
+
+.profile-page .prfl-cont .prfl-main .recent-trx .recent-trx-cont .recent-trx-card .recent-trx-card-left .recent-product .recent-product-desc .date p {
+    color: #f74d4d;
+}
+
+.profile-page .prfl-cont .prfl-main .recent-trx .recent-trx-cont .recent-trx-card .recent-trx-card-left .recent-product .recent-product-desc .Total {
+    margin-top: 40px;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.profile-page .prfl-cont .prfl-main .recent-trx .recent-trx-cont .recent-trx-card .recent-trx-card-right .img {
+    display: flex;
+    justify-content: end;
+    margin-top: 45px;
+}
+
+.profile-page .prfl-cont .prfl-main .recent-trx .recent-trx-cont .recent-trx-card .recent-trx-card-right .img img {
+    width: 45%;
+}
+
+
+/* Table Category */
+
+.table-container {
+    width: 90%;
+    margin-top: 50px;
+    margin-left: 100px;
+}
+
+.table-container h2 {
+    color: white;
+    font-size: 25px;
+    font-weight: 600;
+}
+
+.table-container .btn-add-category {
+    float: right;
+    margin-bottom: 20px;
+}
+
+.table-container .btn-add-category button {
+    color: white;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.table-container Table {
+    color: white;
+}
+
+.table-container Table tr th {
+    color: white;
+    padding: 20px;
+    font-size: 20px;
+    font-weight: 600;
+    background-color: #303030;
+    width: 40%;
+}
+
+.table-container Table tr,
+td {
+    width: 40%;
+    color: white;
+    padding: 20px;
+    font-size: 20px;
+}
+
+.table-container Table tr:nth-child(2n+0) {
+    background-color: #232323;
+}
+
+.table-container Table tr:nth-child(2n+1) {
+    background-color: #303030;
+}
+
+.table-container Table button {
+    color: white;
+    font-size: 20px;
+    font-weight: 600;
+    margin-left: 10px;
+    border-radius: 7px;
+    text-align: center;
+}
+
+.table-container Table .btn-edit {
+    background-color: #56c05a;
+    border: none;
+    padding: 5px 40px;
+}
+
+.table-container Table .btn-delete {
+    border: none;
+    padding: 5px 40px;
+    background-color: #f74d4d;
+}
+
+/* List Product */
+
+.list-product {
+    width: 90%;
+    margin-top: 50px;
+    margin-left: 100px;
+}
+
+.list-product h2 {
+    color: white;
+    font-size: 25px;
+    font-weight: 600;
+}
+
+.list-product .btn-add-product {
+    float: right;
+    margin-bottom: 20px;
+}
+
+.list-product .btn-add-product button {
+    color: white;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.list-product Table {
+    color: white;
+}
+
+.list-product Table tr th {
+    color: white;
+    padding: 20px;
+    font-size: 20px;
+    font-weight: 600;
+    background-color: #303030;
+    width: 15%;
+
+}
+
+.list-product Table tr,
+td {
+
+    color: white;
+    padding: 20px;
+    font-size: 20px;
+    width: 15%;
+}
+
+.list-product Table tr td {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.list-product Table tr:nth-child(2n+0) {
+    background-color: #232323;
+}
+
+.list-product Table tr:nth-child(2n+1) {
+    background-color: #303030;
+}
+
+.list-product Table button {
+    color: white;
+    font-size: 20px;
+    font-weight: 600;
+    margin-left: 10px;
+    border-radius: 7px;
+    text-align: center;
+}
+
+.list-product Table .btn-edit {
+    background-color: #56c05a;
+    border: none;
+    padding: 5px 40px;
+}
+
+.list-product Table .btn-delete {
+    border: none;
+    padding: 5px 40px;
+    background-color: #f74d4d;
+}
+
+/* Edit Product */
+
+.edit-product {
+    width: 90%;
+    margin-top: 50px;
+    margin-left: 100px;
+    color: white;
+}
+
+.edit-product .edit-product-tittle h2 {
+    color: white;
+    font-size: 25px;
+    font-weight: 600;
+}
+
+.edit-product Form input[type="file"]::file-selector-button {
+    border: none;
+    border-radius: 5px;
+    color: white;
+    background-color: #f74d4d;
+    padding: 10px 25px;
+    cursor: pointer;
+    margin-bottom: 50px;
+}
+
+.edit-product .upload-product-img {
+    background-color: #f74d4d;
+    width: 10%;
+    border-radius: 7px;
+    padding: 10px 5px;
+    font-size: 20px;
+    font-weight: 600;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.edit-product Form input[type="text"],
+textarea {
+    background-color: #3d3d3d;
+    border: 1px solid white;
+    padding: 15px;
+    margin-bottom: 35px;
+    border-radius: 8px;
+    color: white;
+    width: 100%;
+    resize: none;
+}
+
+.edit-product Form Button {
+    width: 100%;
+    color: white;
+    background-color: #56c05a;
+    border: none;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    font-size: 20px;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.edit-product .edit-product-desc textarea {
+    height: 150px;
+}
+
+/* ADD PRODUCT */
+
+.add-product {
+    width: 90%;
+    margin-top: 50px;
+    margin-left: 100px;
+    color: white;
+}
+
+.add-product .add-product-tittle h2 {
+    color: white;
+    font-size: 25px;
+    font-weight: 600;
+}
+
+.add-product Form input[type="file"]::file-selector-button {
+    border: none;
+    border-radius: 5px;
+    color: white;
+    background-color: #f74d4d;
+    padding: 10px 25px;
+    cursor: pointer;
+    margin-bottom: 50px;
+}
+
+.add-product .upload-product-img .upload {
+    background-color: #f74d4d;
+    color: white;
+    padding: 10px 20px;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.add-product .upload-product-img {
+    background-color: #f74d4d;
+    width: 10%;
+    border-radius: 7px;
+    padding: 10px 5px;
+    font-size: 20px;
+    font-weight: 600;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+
+.add-product Form input[type="text"],
+textarea {
+    background-color: #3d3d3d;
+    border: 1px solid white;
+    padding: 15px;
+    margin-bottom: 35px;
+    border-radius: 8px;
+    color: white;
+    width: 100%;
+    resize: none;
+}
+
+.add-product Form Button {
+    width: 100%;
+    color: white;
+    border: none;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    font-size: 20px;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.add-product .add-product-desc textarea {
+    height: 150px;
+}
+
+/* CHAT */
+
+.wrapper {
+    display: flex;
+    background-color: black;
+    width: 100%;
+    height: 10%;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.wrapper .container {
+    display: flex;
+    flex-direction: row;
+    color: white;
+}
+
+.wrapper .container .image {
+    width: 25%;
+    height: 100%;
+}
+
+.wrapper .container .image img {
+    width: 100%;
+    padding: 5px;
+    margin-top: 5px;
+    border-radius: 60px;
+}
+
+.wrapper .container .right {
+    width: 100%;
+    height: 100%;
+    margin-top: 5px;
+    margin-left: 15px;
+}
+
+.wrapper .container .right .name {
+    color: white;
+    font-size: 27px;
+    font-weight: 500;
+    height: 50%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 300px;
+}
+
+.wrapper .container .right .message {
+    color: white;
+    display: flex;
+    text-align: left;
+    width: 100%;
+    height: 50%;
+    font-size: 20px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 300px;
+}
+
+/* CHAT */
+
+
+.chat-container {
+    color: white;
+
+}
+
+.chat-container .bubble {
+    margin-bottom: 20px;
+    margin-left: 20px;
+
+}
+
+.chat-container .bubble .chat-history {
+    font-size: 20px;
+    background-color: #3d3d3d;
+    border-radius: 50px 50px 50px;
+    text-align: left;
+    width: 50%;
+    padding: 30px;
+    height: 100%;
+    margin-left: 20px;
+
+}
+
+.chat-container .bubble img {
+    width: 6%;
+
+}
+
+.send-chat input {
+    border-radius: 30px;
+    font-size: 20px;
+    padding: 20px;
+    width: 100%;
+}
