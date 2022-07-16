@@ -1,4 +1,4 @@
-import React, { useState, useEffect, createElement } from "react";
+import React, { useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css"
 import { Button, Form } from "react-bootstrap";
 import Navigation from "../components/Navbar";
@@ -23,22 +23,29 @@ const EditProductComponent = () => {
         qty: "",
     }); //Store product data
 
-    let { productRefetch } = useQuery("productCache", async () => {
+    let { data: products, refetch } = useQuery('productCache', async () => {
         const config = {
+            method: "GET",
             headers: {
                 Authorization: "Basic " + localStorage.token,
             },
         };
-        const response = await api.get("/product/" + id, config);
-        setForm({
-            title: response.data.title,
-            desc: response.data.desc,
-            price: response.data.price,
-            qty: response.data.qty,
-            image: response.data.image,
-        });
-        setProduct(response.data);
-    });
+        const response = await api.get('/product/' + id, config)
+        return response.data.products
+    })
+
+    useEffect(() => {
+        if (products) {
+            setPreview(products.image)
+            setForm({
+                title: products.title,
+                desc: products.desc,
+                price: products.price,
+                qty: products.qty
+            })
+            setProduct(products)
+        }
+    }, [products])
 
     const handleChange = (e) => {
         setForm({
@@ -49,7 +56,8 @@ const EditProductComponent = () => {
 
         // Create image url for preview
         if (e.target.type === "file") {
-            setPreview(e.target.files);
+            let url = URL.createObjectURL(e.target.files[0]);
+            setPreview(url);
         }
     };
 
@@ -57,27 +65,29 @@ const EditProductComponent = () => {
         try {
             e.preventDefault();
 
+            const { image, title, desc, price, qty } = form
+
             // Store data with FormData as object
             const formData = new FormData();
-            if (preview) {
-                formData.set("image", preview[0], preview[0]?.name);
+            if (form.image) {
+                formData.set("image", form?.image[0], form?.image[0]?.name);
             }
             formData.set("title", form.title);
             formData.set("desc", form.desc);
             formData.set("price", form.price);
             formData.set("qty", form.qty);
 
-            // Configuration
             const config = {
-                method: "PATCH",
                 headers: {
                     Authorization: "Basic " + localStorage.token,
-                },
-                body: formData,
+                    "Content-type": "multipart/form-data",
+                }
             };
 
             // Insert product data
-            const response = await api.patch("/product/" + product.id, config);
+            const response = await api.patch(
+                '/product/' + product.id, formData, config
+            );
 
             navigate("/product");
         } catch (error) {
@@ -93,7 +103,6 @@ const EditProductComponent = () => {
         }
     }
 
-
     return (
         <div>
             <Navigation />
@@ -105,7 +114,7 @@ const EditProductComponent = () => {
                 <Form onSubmit={(e) => handleSubmit.mutate(e)}>
                     <div className="upload-product-img">
                         <input hidden onChange={handleChange} name="image" type="file" id="upload" />
-                        <label id="upload" htmlFor="upload">Upload Image</label>
+                        <label id="upload" htmlFor="upload">Upload file</label>
                     </div>
                     {preview && (
                         <div>
@@ -117,17 +126,17 @@ const EditProductComponent = () => {
                         </div>
                     )}
                     <div className="add-product-name">
-                        <input onChange={handleChange} value={form.title} type="text" placeholder="Product Name" name="title" />
+                        <input onChange={handleChange} value={form?.title} type="text" placeholder="Product Name" name="title" />
                     </div>
                     <div className="add-product-desc">
-                        <textarea onChange={handleChange} value={form.desc} placeholder="Product Desc" name="desc">
+                        <textarea onChange={handleChange} value={form?.desc} placeholder="Product Desc" name="desc">
                         </textarea>
                     </div>
                     <div className="add-product-price">
-                        <input onChange={handleChange} value={form.desc} name="price" type="text" placeholder="Price" />
+                        <input onChange={handleChange} value={form?.price} name="price" type="text" placeholder="Price" />
                     </div>
                     <div className="add-product-qty">
-                        <input onChange={handleChange} value={form.qty} name="qty" type="text" placeholder="Qty" />
+                        <input onChange={handleChange} value={form?.qty} name="qty" type="text" placeholder="Qty" />
                     </div>
                     <div className="add-product-qty mb-4">
                         <div className="add-product-qty">
@@ -135,7 +144,7 @@ const EditProductComponent = () => {
                         </div>
                     </div>
                     <div className="btn-add-product">
-                        <Button type="submit" variant="success">Add Product</Button>
+                        <Button type="submit" variant="success">Update Product</Button>
                     </div>
                 </Form>
             </div>

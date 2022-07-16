@@ -10,6 +10,9 @@ import { API } from "../config/api";
 
 function LoginComponent() {
 
+    const title = ' Login'
+    document.title = 'Dumbmerch |' + title
+
     let navigate = useNavigate()
     let api = API();
 

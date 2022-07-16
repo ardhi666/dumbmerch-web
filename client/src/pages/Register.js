@@ -10,7 +10,8 @@ import { API } from "../config/api";
 
 function RegisterComponent() {
 
-    let navigate = useNavigate();
+    const title = ' Register'
+    document.title = 'Dumbmerch |' + title
     let api = API();
 
     const [state, dispatch] = useContext(UserContext);
@@ -52,7 +53,7 @@ function RegisterComponent() {
             if (response.status == "success") {
                 const alert = (
                     <Alert variant="success" className="py-1">
-                        {response.status}
+                        {'Registration Successful '}
                     </Alert>
                 );
                 setMessage(alert);
@@ -152,7 +153,7 @@ function RegisterComponent() {
                                             <div className="mb-3">
                                             </div>
                                             <input onChange={handleChange} value={password} type="password" className="form-control p-2" style={style.form_input} placeholder='Password' id="password" name="password" />
-                                            <Button type="submit" variant="danger" style={style.btn_style}>Login</Button>
+                                            <Button type="submit" variant="danger" style={style.btn_style}>Register</Button>
                                         </Form>
                                     </div>
                                 </div>
