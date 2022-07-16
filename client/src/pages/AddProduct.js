@@ -26,7 +26,7 @@ const AddProduct = () => {
             ...form,
             [e.target.name]:
                 e.target.type === "file" ? e.target.files : e.target.value,
-        });
+        });     
 
         // Create image url for preview
         if (e.target.type === "file") {
@@ -86,7 +86,7 @@ const AddProduct = () => {
                 <Form onSubmit={(e) => handleSubmit.mutate(e)}>
                     <div className="upload-product-img">
                         <input hidden onChange={handleChange} name="image" type="file" id="upload" />
-                        <label id="upload" htmlFor="upload">Upload Image</label>
+                        <label id="upload" htmlFor="upload">Upload file</label>
                     </div>
                     {preview && (
                         <div>

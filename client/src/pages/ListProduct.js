@@ -3,7 +3,6 @@ import { Table, Button, Modal } from 'react-bootstrap'
 import "bootstrap/dist/css/bootstrap.min.css"
 import { Link, useNavigate } from "react-router-dom";
 import Navigation from "../components/Navbar";
-import data from "../DataProduct";
 import rupiahFormat from 'rupiah-format';
 import { useQuery, useMutation } from "react-query";
 import { API } from "../config/api";
@@ -96,7 +95,7 @@ const ListProductComponent = () => {
                     <h2>List Product</h2>
                     <div className="btn-add-product">
                         <Link to="/add-product">
-                            <Button variant="warning">Add Product</Button>
+                            <Button variant="dark">Add Product</Button>
                         </Link>
                     </div>
                     <br />
@@ -115,11 +114,11 @@ const ListProductComponent = () => {
                         {products?.map((data, index) => (
                             <tr key={index}>
                                 <td>{index + 1}</td>
-                                <td><img src={data.image} style={style.review} alt={data.tittle} /></td>
-                                <td>{data.title}</td>
-                                <td style={style.product}>{data.Desc}</td>
-                                <td>{rupiahFormat.convert(data.price)}</td>
-                                <td>{data.stock}</td>
+                                <td><img src={data.image} style={style.review} alt={data?.tittle} /></td>
+                                <td>{data?.title}</td>
+                                <td style={style.product}>{data?.desc}</td>
+                                <td>{rupiahFormat.convert(data?.price)}</td>
+                                <td>{data?.qty}</td>
                                 <td>
                                 <Button onClick={() => {
                                         handleEdit(data.id);
