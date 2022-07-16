@@ -8,7 +8,6 @@ import { useQuery, useMutation } from "react-query";
 import { API } from "../config/api";
 
 const ListProductComponent = () => {
-    let api = API();
 
     let navigate = useNavigate()
     const [idDelete, setIdDelete] = useState(null);
@@ -20,14 +19,8 @@ const ListProductComponent = () => {
     };
 
     let { data: products, refetch } = useQuery("productsCache", async () => {
-        const config = {
-            method: "GET",
-            headers: {
-                Authorization: "Basic " + localStorage.token,
-            },
-        };
-        const response = await api.get("/products", config);
-        return response.data.products
+        const response = await API.get("/products");
+        return response.data.data.products
     });
 
     const handleDelete = (id) => {
@@ -38,13 +31,7 @@ const ListProductComponent = () => {
 
     const deleteById = useMutation(async (id) => {
         try {
-            const config = {
-                method: "DELETE",
-                headers: {
-                    Authorization: "Basic " + localStorage.token,
-                },
-            };
-            await api.delete(`/product/${id}`, config);
+            await API.delete(`/product/${id}`);
             refetch();
         } catch (error) {
             console.log(error);

@@ -24,14 +24,8 @@ const EditProductComponent = () => {
     }); //Store product data
 
     let { data: products, refetch } = useQuery('productCache', async () => {
-        const config = {
-            method: "GET",
-            headers: {
-                Authorization: "Basic " + localStorage.token,
-            },
-        };
-        const response = await api.get('/product/' + id, config)
-        return response.data.products
+        const response = await API.get('/product/' + id)
+        return response.data.data.products
     })
 
     useEffect(() => {
@@ -65,31 +59,24 @@ const EditProductComponent = () => {
         try {
             e.preventDefault();
 
-            const { image, title, desc, price, qty } = form
-
             // Store data with FormData as object
             const formData = new FormData();
             if (form.image) {
                 formData.set("image", form?.image[0], form?.image[0]?.name);
             }
-            formData.set("title", form.title);
+            formData.set("name", form.name);
             formData.set("desc", form.desc);
             formData.set("price", form.price);
             formData.set("qty", form.qty);
-
             const config = {
                 headers: {
-                    Authorization: "Basic " + localStorage.token,
                     "Content-type": "multipart/form-data",
-                }
+                },
             };
-
             // Insert product data
-            const response = await api.patch(
-                '/product/' + product.id, formData, config
-            );
-
-            navigate("/product");
+            const response = await API.patch('/product/' + id, formData, config);
+            // navigate("/product");
+            console.log(response);
         } catch (error) {
             console.log(error);
         }

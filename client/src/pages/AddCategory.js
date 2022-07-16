@@ -5,10 +5,11 @@ import Navigation from "../components/Navbar";
 import { useMutation } from "react-query";
 import {API} from '../config/api.js'
 import { useNavigate } from "react-router-dom";
+import { UserContext } from "../context/userContext";
 
 const AddCategory = () => {
 
-    let api = API()
+    const [state, dispatch] = useContext(UserContext)
 
     const navigate = useNavigate()
     const [form, setForm] = useState({
@@ -20,31 +21,23 @@ const AddCategory = () => {
         setForm({...form, [name]:value})
     }
 
-    const {tittle} = form
 
     const handleSubmit = useMutation(async (e) => {
         try {
             e.preventDefault()
-            const body = JSON.stringify(form)
 
             const config = {
-                method:'POST',
                 headers: {
-                    Authorization: "Basic " + localStorage.token,
                     'Content-type': "application/json"
-                },
-                body:body
+                }
             }
-            
-            const response = await api.post('/category', config)
-            navigate('/category')
-
+            const body = JSON.stringify(form)
+            const response = await API.post('/category', body, config)
+            navigate('/category')    
         } catch (error) {
             console.log(error);
         }
     })
-
-
     return (
         <div>
             <Navigation/>

@@ -9,19 +9,12 @@ import { useNavigate, useParams } from "react-router-dom";
 const EditCategory = () => {
 
     let navigate = useNavigate();
-    let api = API();
     const { id } = useParams();
     const [category, setCategory] = useState({ name: "" });
 
     let { data: categoryData } = useQuery('categoryCache', async () => {
-        const config = {
-            method: "GET",
-            headers: {
-                Authorization: "Basic " + localStorage.token,
-            }
-        };
-        const response = await api.get('/category/' + id, config);
-        return response.data.catagorys.name
+        const response = await API.get('/category/' + id);
+        return response.data.data.catagorys.name
     });
 
     
@@ -43,13 +36,12 @@ const EditCategory = () => {
             e.preventDefault();
             const body = JSON.stringify(category);
             const config = {
-                method: "PATCH",
                 headers: {
-                    Authorization: "Basic " + localStorage.token,
-                }, body
-            };
-            const response = await api.patch('/category/' + id, config);
-            console.log(response);
+                    'Content-type': "application/json"
+                }
+            }
+            const response = await API.patch('/category/' + id, body, config);
+            navigate('/category')
         } catch (error) {
             console.log(error);
         }
