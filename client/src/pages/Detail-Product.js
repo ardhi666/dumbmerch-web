@@ -10,18 +10,11 @@ import { useParams } from "react-router-dom";
 
 const DetailProduct = () => {
 
-    let api = API()
     let { id } = useParams();
 
     let { data: product, refetch } = useQuery('productCache', async () => {
-        const config = {
-            method: "GET",
-            headers: {
-                Authorization: "Basic " + localStorage.token,
-            },
-        };
-        const response = await api.get('/product/' + id,config)
-        return response.data.products
+        const response = await API.get('/product/' + id)
+        return response.data.data.products
     })
 
     return (

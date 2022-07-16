@@ -3,7 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import { Button, Form, Alert } from 'react-bootstrap'
 import { Link, useNavigate } from "react-router-dom"
 import Navigation from "../components/Navbar"
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { UserContext } from "../context/userContext";
 import { useMutation } from "react-query";
 import { API } from "../config/api";
@@ -14,7 +14,6 @@ function LoginComponent() {
     document.title = 'Dumbmerch |' + title
 
     let navigate = useNavigate()
-    let api = API();
 
     const [state, dispatch] = useContext(UserContext);
 
@@ -42,53 +41,48 @@ function LoginComponent() {
 
             // Configuration
             const config = {
-                method: "POST",
                 headers: {
-                    "Content-Type": "application/json",
-                },  body: body,
-            };
+                    'Content-type': "application/json",
+                }
+            }
 
             // Insert data for login process
-            const response = await api.post("/login", config);
-
-            // Checking process
-            if (response.status == "success") {
-                // Send data to useContext
+            const response = await API.post('/login', body, config)
+            if (response.status == 200) {
                 dispatch({
                     type: "LOGIN_SUCCESS",
-                    payload: response.data.users
+                    payload: response.data.data.users
                 });
-
-                // Status check
-                if (response.data.users.status == "admin") {
-                    navigate("/product");
-                } else {
-                    navigate("/");
-                }
-
-                const alert = (
-                    <Alert variant="success" className="py-1">
-                        {response.message}
-                    </Alert>
-                );
-                setMessage(alert);
             } else {
-                const alert = (
-                    <Alert variant="danger" className="py-1">
-                        {response.message}
-                    </Alert>
-                );
-                setMessage(alert);
+                return navigate('/login')
             }
+
         } catch (error) {
             const alert = (
+                // <Alert variant="danger" className="py-1">
+                //     {error.response.data.error.message}
+                // </Alert> &&
                 <Alert variant="danger" className="py-1">
-                    {error}
-                </Alert>
+                 {error.response.data.message}
+            </Alert>
             );
             setMessage(alert);
         }
     });
+
+    useEffect(() => {
+
+        // Redirect Auth
+        if (state.isLogin === false) {
+            navigate('/login');
+        } else {
+            if (state.user.status === 'admin') {
+                navigate('/product');
+            } else if (state.user.status === 'customer') {
+                navigate('/');
+            }
+        }
+    }, [state]);
 
     const style = {
         form_input: {
@@ -157,10 +151,10 @@ function LoginComponent() {
                                         {message && message}
                                         <Form onSubmit={(e) => handleSubmit.mutate(e)}>
                                             <div className="mb-3">
-                                            <input onChange={handleChange} value={email} type="email" className="form-control p-2" style={style.form_input} placeholder='Email' id="email" name="email" />
+                                                <input onChange={handleChange} value={email} type="email" className="form-control p-2" style={style.form_input} placeholder='Email' id="email" name="email" />
                                             </div>
                                             <div className="mb-3">
-                                            <input onChange={handleChange} value={password} type="password" className="form-control p-2" style={style.form_input} placeholder='Password' id="password" name="password" />
+                                                <input onChange={handleChange} value={password} type="password" className="form-control p-2" style={style.form_input} placeholder='Password' id="password" name="password" />
                                             </div>
                                             <Button type="submit" variant="danger" style={style.btn_style}>Login</Button>
                                         </Form>

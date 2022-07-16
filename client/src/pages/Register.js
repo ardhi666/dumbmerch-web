@@ -12,7 +12,6 @@ function RegisterComponent() {
 
     const title = ' Register'
     document.title = 'Dumbmerch |' + title
-    let api = API();
 
     const [state, dispatch] = useContext(UserContext);
     const [message, setMessage] = useState(null);
@@ -33,27 +32,20 @@ function RegisterComponent() {
     const handleSubmit = useMutation(async (e) => {
         try {
             e.preventDefault();
-
-            // Data body
-            const body = JSON.stringify(form);
-
             // Configuration Content-type
             const config = {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: body,
-            };
-
+                headers:{
+                    'Content-type': "application/json",
+                }
+            }
+            const body = JSON.stringify(form)
             // Insert data user to database
-            const response = await api.post("/register", config);
-
+            const response = await API.post('/register', body, config)
             // Notification
-            if (response.status == "success") {
+            if (response.status == 200) {
                 const alert = (
                     <Alert variant="success" className="py-1">
-                        {'Registration Successful '}
+                        {'Registration Successful'}
                     </Alert>
                 );
                 setMessage(alert);
@@ -73,7 +65,7 @@ function RegisterComponent() {
         } catch (error) {
             const alert = (
                 <Alert variant="danger" className="py-1">
-                    {error}
+                    {error.response.data.error.message}
                 </Alert>
             );
             setMessage(alert);

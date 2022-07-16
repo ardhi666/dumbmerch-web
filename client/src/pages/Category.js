@@ -10,7 +10,6 @@ import axios from 'axios'
 
 const CategoryComponent = () => {
 
-    let api = API()
     let navigate = useNavigate()
 
     const [idDelete, setIdDelete] = useState(null);
@@ -22,14 +21,8 @@ const CategoryComponent = () => {
 
 
     let { data: category, refetch } = useQuery("categorysCache", async () => {
-        const config = {
-            method: "GET",
-            headers: {
-                Authorization: "Basic " + localStorage.token,
-            },
-        };
-        const response = await api.get("/categorys", config);
-        return response.categories
+        const response = await API.get("/categorys")
+        return response.data.categories
     });
 
     const handleDelete = (id) => {
@@ -43,13 +36,7 @@ const CategoryComponent = () => {
 
     const deleteById = useMutation(async (id) => {
         try {
-            const config = {
-                method: "DELETE",
-                headers: {
-                    Authorization: "Basic " + localStorage.token,
-                },
-            };
-            await api.delete(`/category/${id}`, config);
+            await API.delete(`/category/${id}`);
             refetch();
         } catch (error) {
             console.log(error);

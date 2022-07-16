@@ -10,15 +10,14 @@ import { API } from "../config/api";
 
 function Home() {
 
-    let api = API();
     const [filter, setFilter] = useState('')
     const searchText = (e) => {
         setFilter(e.target.value)
     }
 
     let { data: products, refetch } = useQuery('productsCache', async () => {
-        const response = await api.get('/products')
-        return response.data.products
+        const response = await API.get('/products')
+        return response.data.data.products
     })
 
     let dataSearch = data.product.filter(item => {

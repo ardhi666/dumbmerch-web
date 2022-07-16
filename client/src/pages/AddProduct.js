@@ -9,7 +9,6 @@ import { useNavigate } from "react-router-dom";
 const AddProduct = () => {
 
     let navigate = useNavigate();
-    let api = API();
     const [preview, setPreview] = useState(null)
     
 
@@ -51,15 +50,13 @@ const AddProduct = () => {
 
             // Configuration
             const config = {
-                method: "POST",
                 headers: {
-                    Authorization: "Basic " + localStorage.token,
-                },
-                body: formData,
+                    'Content-type': "multipart/form-data"
+                }
             };
 
             // Insert product data
-            const response = await api.post("/product", config);
+            const response = await API.post("/product",formData, config);
                 navigate("/product");
         } catch (error) {
             console.log(error);
