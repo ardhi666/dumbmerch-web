@@ -51,7 +51,7 @@ function Navigation() {
                                 </>
                                 }
                                 {state.isLogin === false ? <li className="nav-item me-2">
-                                <Link to="/login" style={{ textDecoration: "none", fontSize: "20px", color: "white", paddingRight: "20px" }}>Sign In</Link>
+                                <Link to="/register" style={{ textDecoration: "none", fontSize: "20px", color: "white", paddingRight: "20px" }}>Sign In</Link>
                             </li> : <li className="nav-item me-2">
                                     <a style={{ textDecoration: "none", fontSize: "20px", color: "white", paddingRight: "20px", cursor: "pointer" }} onClick={handleLogout}>Log Out</a>
                                 </li> }

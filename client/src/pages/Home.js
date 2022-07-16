@@ -20,12 +20,11 @@ function Home() {
         return response.data.data.products
     })
 
-    let dataSearch = data.product.filter(item => {
+    let dataSearch = products?.filter(item => {
         return Object.keys(item).some(key =>
             item[key].toString().toLowerCase().includes(filter.toString().toLowerCase())
         )
     })
-
 
     return (
         <div>
@@ -35,12 +34,12 @@ function Home() {
                     <div className="tittle">
                         <h1>Product</h1>
                     </div>
-                    {/* <div className="search">
+                    <div className="search">
                         <img src={Search} alt="Search" />
                         <input type="text" placeholder="Search Product" value={filter} onChange={searchText.bind(this)} />
-                    </div> */}
+                    </div>
                     <div className="content">
-                        {products?.map((data, index) => {
+                        {dataSearch?.map((data, index) => {
                             return (
                                 <div key={index} className="card">
                                     <div className="img">

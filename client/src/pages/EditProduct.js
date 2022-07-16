@@ -9,7 +9,6 @@ import { useNavigate, useParams } from "react-router-dom";
 const EditProductComponent = () => {
 
     let navigate = useNavigate();
-    let api = API();
     const { id } = useParams();
     const [product, setProduct] = useState({}); //Store product data
 
@@ -21,7 +20,7 @@ const EditProductComponent = () => {
         desc: "",
         price: "",
         qty: "",
-    }); //Store product data
+    });
 
     let { data: products, refetch } = useQuery('productCache', async () => {
         const response = await API.get('/product/' + id)
@@ -32,6 +31,7 @@ const EditProductComponent = () => {
         if (products) {
             setPreview(products.image)
             setForm({
+                ...form,
                 title: products.title,
                 desc: products.desc,
                 price: products.price,
@@ -45,11 +45,11 @@ const EditProductComponent = () => {
         setForm({
             ...form,
             [e.target.name]:
-                e.target.type === "file" ? e.target.files : e.target.value,
+                e.target.type === 'file' ? e.target.files : e.target.value,
         });
 
         // Create image url for preview
-        if (e.target.type === "file") {
+        if (e.target.type === 'file') {
             let url = URL.createObjectURL(e.target.files[0]);
             setPreview(url);
         }
@@ -59,24 +59,30 @@ const EditProductComponent = () => {
         try {
             e.preventDefault();
 
+            const config = {
+                headers: {
+                    'Content-type': 'multipart/form-data',
+                },
+            };
+
             // Store data with FormData as object
             const formData = new FormData();
             if (form.image) {
-                formData.set("image", form?.image[0], form?.image[0]?.name);
+                formData.set('image', form?.image[0], form?.image[0]?.name);
             }
-            formData.set("name", form.name);
-            formData.set("desc", form.desc);
-            formData.set("price", form.price);
-            formData.set("qty", form.qty);
-            const config = {
-                headers: {
-                    "Content-type": "multipart/form-data",
-                },
-            };
+            formData.set('title', form.title)
+            formData.set('desc', form.desc)
+            formData.set('price', form.price)
+            formData.set('qty', form.qty)
+
             // Insert product data
-            const response = await API.patch('/product/' + id, formData, config);
-            // navigate("/product");
-            console.log(response);
+            const response = await API.patch(
+                '/product/' + product.id,
+                formData,
+                config
+              );
+
+            navigate("/product");
         } catch (error) {
             console.log(error);
         }
@@ -89,6 +95,9 @@ const EditProductComponent = () => {
             marginBottom: "20px"
         }
     }
+
+    useEffect(() => {
+    }, [product]);
 
     return (
         <div>

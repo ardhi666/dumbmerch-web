@@ -13,6 +13,7 @@ import { BrowserRouter as Router, Routes, Route, useNavigate} from "react-router
 import AddProduct from './pages/AddProduct';
 import AddCategory from './pages/AddCategory';
 import Complain from './pages/Complain';
+import ComplainAdmin from './pages/ComplainAdmin';
 import { useContext, useState, useEffect } from "react";
 import { UserContext } from "./context/userContext";
 import { API, setAuthToken } from '../src/config/api';
@@ -22,8 +23,6 @@ if(localStorage.token){
 }
 
 function App() {
-
-  let navigate = useNavigate()
 
   const [state, dispatch] = useContext(UserContext);
 
@@ -69,6 +68,7 @@ function App() {
         <Route path="/add-product" element={<AddProduct />}/>
         <Route path="/add-category" element={<AddCategory />}/>
         <Route path="/complain" element={<Complain />}/>
+        <Route path="/complain-admin" element={<ComplainAdmin />}/>
       </Routes>
     
 
