@@ -68,19 +68,17 @@ const EditProductComponent = () => {
             // Store data with FormData as object
             const formData = new FormData();
             if (form.image) {
-                formData.set('image', form?.image[0], form?.image[0]?.name);
+                formData.set("image", form?.image[0], form?.image[0]?.name);
             }
-            formData.set('title', form.title)
-            formData.set('desc', form.desc)
-            formData.set('price', form.price)
-            formData.set('qty', form.qty)
+            formData.set("title", form.title);
+            formData.set("desc", form.desc);
+            formData.set("price", form.price);
+            formData.set("qty", form.qty);
 
             // Insert product data
             const response = await API.patch(
-                '/product/' + product.id,
-                formData,
-                config
-              );
+                '/product/' + product.id, formData, config
+            );
 
             navigate("/product");
         } catch (error) {
@@ -96,8 +94,7 @@ const EditProductComponent = () => {
         }
     }
 
-    useEffect(() => {
-    }, [product]);
+    
 
     return (
         <div>

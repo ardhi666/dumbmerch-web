@@ -1,14 +1,28 @@
-const { product, user } = require("../../models")
+const { product, user, category, productCategory } = require("../../models")
 
 exports.addProduct = async (req, res) => {
     try {
-            
+
+        let { categoryId } = req.body;
+
+        if (categoryId) {
+            categoryId = categoryId.split(',');
+        }
+
         let data = req.body
         let newProduct = await product.create({
             ...data,
             image: req.file.filename,
             idUser: req.user.id
         })
+
+        if (categoryId) {
+            const productCategoryData = categoryId.map((item) => {
+                return { idProduct: newProduct.id, idCategory: parseInt(item) };
+            });
+
+            await productCategory.bulkCreate(productCategoryData);
+        }
 
         let products = await product.findOne({
             where: {
@@ -19,9 +33,21 @@ exports.addProduct = async (req, res) => {
                     model: user,
                     as: "user",
                     attributes: {
-                        exclude: ["createdAt", "updatedAt", "password","status"],
+                        exclude: ["createdAt", "updatedAt", "password", "status"],
                     },
-                }
+                },
+                {
+                    model: category,
+                    as: 'categories',
+                    through: {
+                        model: productCategory,
+                        as: 'bridge',
+                        attributes: [],
+                    },
+                    attributes: {
+                        exclude: ['createdAt', 'updatedAt'],
+                    },
+                },
             ],
             attributes: {
                 exclude: ["createdAt", "updatedAt", "idUser"],
@@ -45,9 +71,22 @@ exports.addProduct = async (req, res) => {
 exports.getProducts = async (req, res) => {
     try {
         let products = await product.findAll({
-
+            include: [
+                {
+                    model: category,
+                    as: 'categories',
+                    through: {
+                        model: productCategory,
+                        as: 'bridge',
+                        attributes: [],
+                    },
+                    attributes: {
+                        exclude: ['createdAt', 'updatedAt'],
+                    },
+                },
+            ],
             attributes: {
-                exclude: ['updatedAt', 'createdAt','idUser']
+                exclude: ['updatedAt', 'createdAt', 'idUser']
             }
         })
 
@@ -62,7 +101,7 @@ exports.getProducts = async (req, res) => {
         res.status(200).send({
             status: "succes",
             data: {
-                products:products
+                products: products
             }
         })
     } catch (error) {
@@ -78,8 +117,22 @@ exports.getProduct = async (req, res) => {
         const { id } = req.params;
         let products = await product.findOne({
             where: { id },
+            include: [
+                {
+                    model: category,
+                    as: 'categories',
+                    through: {
+                        model: productCategory,
+                        as: 'bridge',
+                        attributes: [],
+                    },
+                    attributes: {
+                        exclude: ['createdAt', 'updatedAt'],
+                    },
+                },
+            ],
             attributes: {
-                exclude: ["createdAt", "updatedAt",'idUser'],
+                exclude: ["createdAt", "updatedAt", 'idUser'],
             },
         });
         products = JSON.parse(JSON.stringify(products));
@@ -91,7 +144,7 @@ exports.getProduct = async (req, res) => {
 
         res.status(200).send({
             status: "success",
-            data: {products:products}
+            data: { products: products }
         });
     } catch (error) {
         res.status(400).send({
@@ -103,31 +156,31 @@ exports.getProduct = async (req, res) => {
 
 exports.updateProduct = async (req, res) => {
     try {
-        const { id } = req.params
-        const p = req.body
+        const { id } = req.params;
 
-        await product.update(p, {
-            where: {
-                id
-            }
-        })
+        const data = {
+            title: req?.body?.title,
+            desc: req?.body.desc,
+            price: req?.body?.price,
+            image: req?.file?.filename,
+            qty: req?.body?.qty,
+            idUser: req?.user?.id,
+        };
 
-        const products = await product.findOne({
+        await product.update(data, {
             where: {
-                id: id
+                id,
             },
-            attributes: {
-                exclude: ['updatedAt', 'createdAt','idUser']
-            }
-        })
+        });
 
-        res.status(200).send({
-            status: "success",
+        res.send({
+            status: 'success',
             data: {
-                products
-            }
-        })
-
+                id,
+                data,
+                image: req?.file?.filename,
+            },
+        });
     } catch (error) {
         res.status(400).send({
             status: "failed",
@@ -144,6 +197,12 @@ exports.deleteProduct = async (req, res) => {
                 id
             }
         })
+
+        await productCategory.destroy({
+            where: {
+                idProduct: id,
+            },
+        });
 
         res.status(200).send({
             status: "success",
