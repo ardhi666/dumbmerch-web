@@ -592,6 +592,15 @@ textarea {
     margin-bottom: 20px;
 }
 
+.card-form-input {
+    font-size: 20px;
+    background:#3d3d3d;
+    border: 1px solid white;
+    box-sizing: border-box;
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+
 
 .add-product Form input[type="text"],
 textarea {

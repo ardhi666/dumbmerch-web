@@ -10,7 +10,34 @@ const AddProduct = () => {
 
     let navigate = useNavigate();
     const [preview, setPreview] = useState(null)
-    
+    const [categories, setCategories] = useState([]); //Store all category data
+    const [categoryId, setCategoryId] = useState([]); //Save the selected category id
+
+    const getCategories = async () => {
+        try {
+            const response = await API.get('/categorys')
+            setCategories(response.data.categories)
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+    const handleChangeCategoryId = (e) => {
+        const id = e.target.value;
+        const checked = e.target.checked;
+
+        if (checked) {
+            // Save category id if checked
+            setCategoryId([...categoryId, parseInt(id)]);
+        } else {
+            // Delete category id from variable if unchecked
+            let newCategoryId = categoryId.filter((categoryIdItem) => {
+                return categoryIdItem != id;
+            });
+            setCategoryId(newCategoryId);
+        }
+    };
+
 
     const [form, setForm] = useState({
         image: '',
@@ -25,7 +52,7 @@ const AddProduct = () => {
             ...form,
             [e.target.name]:
                 e.target.type === "file" ? e.target.files : e.target.value,
-        });     
+        });
 
         // Create image url for preview
         if (e.target.type === "file") {
@@ -38,8 +65,6 @@ const AddProduct = () => {
         try {
             e.preventDefault();
 
-            const { image, title, desc, price, qty } = form
-
             // Store data with FormData as object
             const formData = new FormData();
             formData.set('image', form.image[0], form.image[0].tittle)
@@ -47,6 +72,7 @@ const AddProduct = () => {
             formData.set('desc', form.desc)
             formData.set('price', form.price)
             formData.set('qty', form.qty)
+            formData.set('categoryId', categoryId);
 
             // Configuration
             const config = {
@@ -56,8 +82,8 @@ const AddProduct = () => {
             };
 
             // Insert product data
-            const response = await API.post("/product",formData, config);
-                navigate("/product");
+            const response = await API.post("/product", formData, config);
+            navigate("/product");
         } catch (error) {
             console.log(error);
         }
@@ -70,6 +96,11 @@ const AddProduct = () => {
             marginBottom: "20px"
         }
     }
+
+    useEffect(() => {
+        getCategories();
+    }, []);
+
 
 
     return (
@@ -107,10 +138,23 @@ const AddProduct = () => {
                     <div className="add-product-qty">
                         <input onChange={handleChange} name="qty" type="text" placeholder="Qty" />
                     </div>
-                    <div className="add-product-qty mb-4">
-                        <div className="add-product-qty">
-                            <input name="category" type="text" placeholder="Category" />
+                    <div className="card-form-input px-2 py-1 pb-2">
+                        <div
+                            className="text-secondary mb-1"
+                            style={{ fontSize: '15px' }}
+                        >
+                            Category
                         </div>
+                        {categories.map((item, index) => (
+                            <label className="checkbox-inline me-4" key={index}>
+                                <input
+                                    type="checkbox"
+                                    value={item.id}
+                                    onClick={handleChangeCategoryId}
+                                />{' '}
+                                {item.name}
+                            </label>
+                        ))}
                     </div>
                     <div className="btn-add-product">
                         <Button type="submit" variant="success">Add Product</Button>
