@@ -290,6 +290,8 @@ body {
 
 .profile-page .prfl-cont .prfl-main .recent-trx .recent-trx-cont .recent-trx-card .recent-trx-card-left .recent-product .recent-product-img img {
     width: 100%;
+    margin-top: 10px;
+    margin-right: 10px;
 }
 
 .profile-page .prfl-cont .prfl-main .recent-trx .recent-trx-cont .recent-trx-card .recent-trx-card-left .recent-product .recent-product-desc {
@@ -309,7 +311,7 @@ body {
 
 .profile-page .prfl-cont .prfl-main .recent-trx .recent-trx-cont .recent-trx-card .recent-trx-card-left .recent-product .recent-product-desc .Total {
     margin-top: 40px;
-    font-size: 14px;
+    font-size: 12px;
     font-weight: 500;
 }
 
@@ -321,6 +323,11 @@ body {
 
 .profile-page .prfl-cont .prfl-main .recent-trx .recent-trx-cont .recent-trx-card .recent-trx-card-right .img img {
     width: 45%;
+}
+
+.profile-page .prfl-cont .prfl-main .recent-trx .recent-trx-cont .recent-trx-card .recent-trx-card-right h2{
+    margin-top: 50px;
+    margin-left: 30px;
 }
 
 

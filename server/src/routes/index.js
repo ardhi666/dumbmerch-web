@@ -12,7 +12,7 @@ const { getUsers, getUser } = require('../controllers/user')
 const { register, login, checkAuth } = require('../controllers/auth')
 const { getProducts, addProduct, updateProduct, getProduct, deleteProduct } = require('../controllers/product')
 const { addCategory, getCategorys, getCategory, updateCategory, deleteCategory } = require('../controllers/category')
-const {addTransaction, getTransactions} = require('../controllers/transaction')
+const {addTransaction, getTransactions, notification} = require('../controllers/transaction')
 
 // ROUTE
 
@@ -37,5 +37,6 @@ router.delete("/category/:id", auth, deleteCategory)
 
 router.post("/transaction", auth, addTransaction)
 router.get("/transactions", auth, getTransactions)
+router.post("/notification", notification);
 
 module.exports = router

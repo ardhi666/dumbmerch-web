@@ -86,7 +86,7 @@ exports.getProducts = async (req, res) => {
                 },
             ],
             attributes: {
-                exclude: ['updatedAt', 'createdAt', 'idUser']
+                exclude: ['updatedAt', 'createdAt']
             }
         })
 
@@ -132,7 +132,7 @@ exports.getProduct = async (req, res) => {
                 },
             ],
             attributes: {
-                exclude: ["createdAt", "updatedAt", 'idUser'],
+                exclude: ["createdAt", "updatedAt"],
             },
         });
         products = JSON.parse(JSON.stringify(products));
@@ -156,31 +156,31 @@ exports.getProduct = async (req, res) => {
 
 exports.updateProduct = async (req, res) => {
     try {
-        const { id } = req.params;
-
-        const data = {
-            title: req?.body?.title,
-            desc: req?.body.desc,
-            price: req?.body?.price,
-            image: req?.file?.filename,
-            qty: req?.body?.qty,
-            idUser: req?.user?.id,
-        };
+        const { id } = req.params
+        const data = req.body
 
         await product.update(data, {
             where: {
-                id,
-            },
-        });
+                id
+            }
+        })
 
-        res.send({
-            status: 'success',
-            data: {
-                id,
-                data,
-                image: req?.file?.filename,
+        const products = await product.findOne({
+            where: {
+                id: id
             },
-        });
+            attributes: {
+                exclude: ['updatedAt', 'createdAt','idUser']
+            }
+        })
+
+        res.status(200).send({
+            status: "success",
+            data: {
+                products
+            }
+        })
+
     } catch (error) {
         res.status(400).send({
             status: "failed",

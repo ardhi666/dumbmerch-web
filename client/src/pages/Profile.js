@@ -1,8 +1,17 @@
 import Profile from "../assets/img/Profile.jpg"
 import Mouse from '../assets/img/Mouse.png'
 import Navigation from "../components/Navbar"
+import { useQuery, useMutation } from "react-query";
+import { API } from "../config/api";
+import rupiahFormat from 'rupiah-format';
+import { useEffect } from "react";
 
 const ProfilePage = () => {
+
+    let { data: transactions, refetch } = useQuery('transactionsCache', async () => {
+        const response = await API.get('/transactions')
+        return response.data.data.transactions
+    })
 
 
     return (
@@ -43,25 +52,29 @@ const ProfilePage = () => {
                         <div className="recent-trx">
                             <div className="recent-trx-cont">
                                 <h2>My Transaction</h2>
-                                <div className="recent-trx-card">
+                                {transactions?.map((data,index)=>{
+                                    return (
+                                    <div key={data.id} className="recent-trx-card">
                                     <div className="recent-trx-card-left">
                                         <div className="recent-product">
                                             <div className="recent-product-img">
-                                                <img src={Mouse} alt="Mouse" />
+                                                <img src={`http://localhost:5000/uploads/${data.product.image}` } alt="Mouse" />
                                             </div>
                                             <div className="recent-product-desc">
-                                                <div className="tittle"><h2>Mouse</h2></div>
+                                                <div className="tittle"><h2>{data.product.title}</h2></div>
                                                 <div className="date"><p>
                                                 </p></div>
-                                                <div className="price">Price : Rp.990.000</div>
-                                                <div className="Total"><b>Sub Total : Rp.990.000</b></div>
+                                                <div className="price">Price : {rupiahFormat.convert(data.price)}</div>
+                                                <div className="Total"><b>Sub Total : {rupiahFormat.convert(data.price)}</b></div>
                                             </div>
                                         </div>
                                     </div>
                                     <div className="recent-trx-card-right">
-                                        <h2>Success</h2>
+                                        <h2>{data.status}</h2>
                                     </div>
                                 </div>
+                                    )
+                                })}
                             </div>
                         </div>
                     </div>

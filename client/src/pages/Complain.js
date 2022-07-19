@@ -58,7 +58,7 @@ export default function Complain() {
         socket.on("admin contact", (data) => {
             // manipulate data to add message property with the newest message
             // code here
-            const dataContact = {
+            let dataContact = {
                 ...data,
                 message: messages.length > 0 ? messages[messages.length - 1].messages : "Click here to start message"
             }
@@ -95,7 +95,6 @@ export default function Complain() {
         }
     }
     
-
 
     return (
         <>
