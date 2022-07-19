@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Admin from '../assets/img/Admin.jpg'
 
 export default function Contact({ dataContact, clickContact, contact }) {
